@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
 import Library from '@/components/Library'
 import Hot from '@/components/Hot'
 import Movies from '@/components/Movies'
@@ -12,18 +11,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
       path: '/Library',
       name: 'Library',
       component: Library
     },
     {
-      path: '/Hot',
+      path: '/',
       name: 'Hot',
+      alias: '/Hot',
       component: Hot
     },
     {

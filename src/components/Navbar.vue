@@ -1,6 +1,6 @@
 <template>
   <div id="navbar">
-    <div id="title" @click="titleClick()">
+    <div id="title">
       ferret
     </div>
     <div id="links">
@@ -8,12 +8,12 @@
         <div @mouseover="mouseOver(link.id)"
              @mouseleave="mouseLeave(link.id)"
              @click="goto(link.id)">{{link.name}}</div>
-        <transition name="component-fade">
+          <transition name="component-fade">
             <!--If the current link is hovered or that's the page we're on-->
             <div v-if="pageIndicatorActive(links[link.id].active, links[link.id].name)">
                <hr>
             </div>
-         </transition>
+          </transition>
       </div>
     </div>
   </div>
@@ -24,6 +24,7 @@ export default {
   name: 'Navbar',
   data() {
     return {
+      prevID: -1,
       /* TODO: Add activeForUser property which hides them if the user doesn't want that type of media." */
       links: [{name: "Library", id: 0, active: false}, 
               {name: "Hot", id: 1, active: false},
@@ -33,20 +34,20 @@ export default {
     }
   },
   methods: {
-    titleClick: function() {
-      this.$router.push("/");
-    },
     mouseOver: function(id) {
       this.links[id].active = true;
+      this.prevID = id;
     },
     mouseLeave: function(id) {
       this.links[id].active = false;
     },
     goto: function(id) {
+      if (this.prevID != -1) {
+        this.links[this.prevID].active = false;
+      }
       this.$router.push(this.links[id].name);
     },
     pageIndicatorActive: function (isActive, name) {
-      console.log("run");
       return isActive || this.$router.currentRoute.name.includes(name);
     }
   }
