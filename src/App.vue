@@ -1,18 +1,26 @@
 <template>
   <div id="app"> 
-    <router-view/>
+    <navbar></navbar>
+    <transition name="fade" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
 <script>
+import navbar from '@/components/Navbar';
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    navbar
+  }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Muli:200');
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Muli', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -24,5 +32,11 @@ html {
 }
 body {
   margin: 0
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

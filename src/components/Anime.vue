@@ -1,17 +1,17 @@
 <template>
-  <div id="home">
-    Home
+  <div id="anime">
+    Anime
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Anime'
 }
 </script>
 
 <style>
-#home {
+#anime {
   text-align: left;
   color: whitesmoke;
 }

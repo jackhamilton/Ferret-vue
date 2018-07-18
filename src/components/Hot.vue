@@ -1,17 +1,17 @@
 <template>
-  <div id="home">
-    Home
+  <div id="hot">
+    Hot
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Hot'
 }
 </script>
 
 <style>
-#home {
+#hot {
   text-align: left;
   color: whitesmoke;
 }

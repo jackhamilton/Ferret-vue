@@ -1,6 +1,6 @@
 <template>
   <div id="navbar">
-    <div id="title">
+    <div id="title" @click="titleClick()">
       ferret
     </div>
     <div id="links">
@@ -9,7 +9,8 @@
              @mouseleave="mouseLeave(link.id)"
              @click="goto(link.id)">{{link.name}}</div>
         <transition name="component-fade">
-            <div v-if="links[link.id].active">
+            <!--If the current link is hovered or that's the page we're on-->
+            <div v-if="pageIndicatorActive(links[link.id].active, links[link.id].name)">
                <hr>
             </div>
          </transition>
@@ -23,7 +24,6 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      cID: 0,
       /* TODO: Add activeForUser property which hides them if the user doesn't want that type of media." */
       links: [{name: "Library", id: 0, active: false}, 
               {name: "Hot", id: 1, active: false},
@@ -33,6 +33,9 @@ export default {
     }
   },
   methods: {
+    titleClick: function() {
+      this.$router.push("/");
+    },
     mouseOver: function(id) {
       this.links[id].active = true;
     },
@@ -40,8 +43,11 @@ export default {
       this.links[id].active = false;
     },
     goto: function(id) {
-      this.$router.push('helloworld');
-      //this.$router.push(this.links[id].name);
+      this.$router.push(this.links[id].name);
+    },
+    pageIndicatorActive: function (isActive, name) {
+      console.log("run");
+      return isActive || this.$router.currentRoute.name.includes(name);
     }
   }
 }
@@ -60,12 +66,10 @@ export default {
   cursor: default;
 }
 #title {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   float: left;
   padding: 10px;
   color: whitesmoke;
+  cursor: pointer;
 }
 #link {
   color: whitesmoke;
@@ -87,8 +91,8 @@ hr {
   border-top: 1px solid #ccc;
   margin: 1em 0;
   padding: 0;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 20%;
+  margin-right: 20%;
   transform: translateY(-22px);
 }
 .component-fade-enter-active, .component-fade-leave-active {
